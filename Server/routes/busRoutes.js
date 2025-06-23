@@ -1,6 +1,5 @@
-
 import express from "express";
-import { getAllBusRoutes } from "../controller/busController.js"; 
+import { getAllBusRoutes } from "../controllers/busControllers.js"; 
 
 const busRouter = express.Router();
 
