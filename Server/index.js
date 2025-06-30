@@ -1,30 +1,36 @@
 import express from 'express';
-import dotenv from 'dotenv'
-import cors from 'cors'
+import dotenv from 'dotenv';
+import cors from 'cors';
 import connectDB from './config/mongodb.js';
 import busRouter from './routes/busRoutes.js';
 
 dotenv.config();
 
-const port = 3000 || process.env.PORT;
+const app = express();
+const port = process.env.PORT || 3000; // Better fallback if .env is missing
 
-
+// Connect to MongoDB
 connectDB();
 
-const app = express();
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(express.json()); // For parsing JSON request bodies
+app.use(express.urlencoded({ extended: true })); // For parsing form data
 
-
+// Default route
 app.get('/', (req, res) => {
-    res.send("<h1>Hello World</h1>" + port)
+  res.send(`<h1>🚍 Bus Route API Running on Port ${port}</h1>`);
 });
 
-app.use('/api/bus', busRouter)
+// API routes
+app.use('/api/bus', busRouter);
 
-
+// Start server
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+  console.log(`✅ Server running at http://localhost:${port}`);
+});
