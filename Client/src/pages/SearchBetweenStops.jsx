@@ -26,7 +26,7 @@ const SearchBetweenStops = () => {
     setBuses([]);
 
     try {
-      const response = await fetch('https://bus-route-sayw.onrender.com', {
+      const response = await fetch('https://bus-route-sayw.onrender.com/api/bus/find-route', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
