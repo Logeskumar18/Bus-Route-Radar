@@ -20,7 +20,7 @@ const SearchByStop = () => {
     setBuses([]);
 
     try {
-      const res = await fetch('https://bus-route-sayw.onrender.com/stop', {
+      const res = await fetch('https://bus-route-sayw.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stopName: stopName.trim() })
