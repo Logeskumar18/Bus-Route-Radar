@@ -7,7 +7,7 @@ const BusDetails = () => {
   const [bus, setBus] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/bus/find-route`)
+    fetch(`https://bus-route-sayw.onrender.com`)
       .then(res => res.json())
       .then(data => setBus(data.data));
   }, [number]);
