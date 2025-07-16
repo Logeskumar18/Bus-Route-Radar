@@ -11,12 +11,21 @@ const Navbar = () => {
     const closeMenu = () => setIsOpen(false);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-            <Link className="navbar-brand" to="/" onClick={closeMenu}>🚌 Bus Route Finder</Link>
+        <nav
+            className="navbar navbar-expand-lg navbar-dark px-4 py-3"
+            style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.9)', // Even darker, slightly transparent background
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.5)', // Subtle shadow
+                backdropFilter: 'blur(5px)', // Add a blur effect for a modern look
+            }}
+        >
+            <Link className="navbar-brand fw-bold fs-4 text-primary" to="/" onClick={closeMenu}>
+                🚌 Madurai Bus Route Finder
+            </Link>
 
             {/* Toggle button for small screens */}
             <button
-                className="navbar-toggler"
+                className="navbar-toggler border-warning" // Border color for toggler
                 type="button"
                 onClick={toggleNavbar}
                 aria-controls="navbarNav"
@@ -29,16 +38,42 @@ const Navbar = () => {
             {/* Collapsible menu */}
             <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
                 <ul className="navbar-nav ms-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/search" onClick={closeMenu}>Between Stops</Link>
+                    <li className="nav-item me-3">
+                        <Link
+                            className="nav-link text-white-50 fw-semibold"
+                            to="/search"
+                            onClick={closeMenu}
+                            style={{ transition: 'color 0.3s ease' }}
+                            onMouseEnter={(e) => (e.target.style.color = 'skyblue')} // Hover effect
+                            onMouseLeave={(e) => (e.target.style.color = 'rgba(255, 255, 255, 0.5)')}
+                        >
+                            Between Stops
+                        </Link>
+                    </li>
+                    <li className="nav-item me-3">
+                        <Link
+                            className="nav-link text-white-50 fw-semibold"
+                            to="/stop"
+                            onClick={closeMenu}
+                            style={{ transition: 'color 0.3s ease' }}
+                            onMouseEnter={(e) => (e.target.style.color = '#ffc107')}
+                            onMouseLeave={(e) => (e.target.style.color = 'rgba(255, 255, 255, 0.5)')}
+                        >
+                            By Stop
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/stop" onClick={closeMenu}>By Stop</Link>
+                        <Link
+                            className="nav-link text-white-50 fw-semibold"
+                            to="/number"
+                            onClick={closeMenu}
+                            style={{ transition: 'color 0.3s ease' }}
+                            onMouseEnter={(e) => (e.target.style.color = '#ffc107')}
+                            onMouseLeave={(e) => (e.target.style.color = 'rgba(255, 255, 255, 0.5)')}
+                        >
+                            By Bus Number
+                        </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/number" onClick={closeMenu}>By Bus Number</Link>
-                    </li>
-
                 </ul>
             </div>
         </nav>

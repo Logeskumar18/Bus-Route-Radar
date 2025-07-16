@@ -11,9 +11,13 @@ export const getBusesBetweenStops = async (req, res) => {
   }
 
   try {
-    const matchingRoutes = await BusRoute.find({
-      'stops.name': { $all: [from, to] }
-    });
+   const matchingRoutes = await BusRoute.find({
+  $and: [
+    { 'stops.name': { $regex: new RegExp(`^${from}$`, 'i') } },
+    { 'stops.name': { $regex: new RegExp(`^${to}$`, 'i') } }
+  ]
+});
+
 
     const result = [];
 
@@ -53,7 +57,10 @@ export const getBusDetailsByNumber = async (req, res) => {
   }
 
   try {
-    const route = await BusRoute.findOne({ busNumber: busNumber });
+    const route = await BusRoute.findOne({
+      busNumber: { $regex: new RegExp(`^${busNumber}$`, 'i') }
+    });
+
 
     if (!route) {
       return res.status(404).json({ success: false, message: "Bus route not found." });
@@ -76,20 +83,19 @@ export const getBusDetailsByNumber = async (req, res) => {
   }
 };
 
-
 export const getBusesByStopName = async (req, res) => {
   const { stopName } = req.body;
 
-  if (!stopName) {
+  if (!stopName || typeof stopName !== 'string') {
     return res.status(400).json({
       success: false,
-      message: "'stopName' is required in the request body."
+      message: "'stopName' is required in the request body and must be a string."
     });
   }
 
   try {
     const routes = await BusRoute.find({
-      'stops.name': stopName
+      'stops.name': { $regex: new RegExp(`^${stopName}$`, 'i') }
     });
 
     if (!routes.length) {
