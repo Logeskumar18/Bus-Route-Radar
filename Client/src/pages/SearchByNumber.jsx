@@ -21,7 +21,7 @@ const SearchByNumber = () => {
     setBus(null);
 
     try {
-      const res = await fetch(`https://bus-route-sayw.onrender.com`, {
+      const res = await fetch(`https://bus-route-sayw.onrender.com/api/bus/find-details`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ busNumber: busNumber.trim() }),
